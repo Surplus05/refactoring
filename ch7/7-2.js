@@ -14,8 +14,16 @@ export class Person {
     return this.#courses;
   }
 
-  set courses(courses) {
-    this.#courses = courses;
+  addCourse(courses) {
+    this.#courses.push(courses);
+  }
+  removeCourse(course) {
+    const index = this.#courses.indexOf(course);
+    if (index === -1) {
+      console.log("course does not exist!");
+      return;
+    }
+    this.#courses.splice(index);
   }
 }
 
@@ -36,6 +44,11 @@ export class Course {
   }
 }
 
-const ellie = new Person('엘리');
-ellie.courses.push(new Course('리팩토링', true));
-console.log(ellie.courses.length);
+const ellie = new Person("엘리");
+const course = new Course("리팩토링", true);
+ellie.addCourse(course);
+console.log("course added. current course : " + ellie.courses.length);
+ellie.removeCourse(course);
+console.log("course removed. current course : " + ellie.courses.length);
+console.log("try to remove course again, it will be throw an error");
+ellie.removeCourse(course);
